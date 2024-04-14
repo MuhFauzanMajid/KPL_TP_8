@@ -1,7 +1,26 @@
-﻿internal class Program
+﻿using tpmodul8_1302220144;
+
+internal class Program
 {
     private static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        TestConfig configApp = new TestConfig();
+
+        Console.Write($"Berapa suhu badan anda saat ini? Dalam nilai {configApp.config.satuan_suhu} : ");
+        double suhu = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write($"\nBerapa hari yang lalu (perkiraan) anda terakhir memiliki gejala demam? : ");
+        int hari_demam = int.Parse(Console.ReadLine());
+
+
+        if (((configApp.config.satuan_suhu == "celcius" && suhu >= 36.5 && suhu <= 37.5) || (configApp.config.satuan_suhu == "fahrenheit" && suhu >= 97.7 && suhu <= 99.5)) && hari_demam < configApp.config.batas_hari_demam)
+        {
+            Console.WriteLine(configApp.config.pesan_diterima);
+        }
+        else
+        {
+            Console.WriteLine(configApp.config.pesan_ditolak);
+        }
+        configApp.UbahSatuan();
     }
 }
